@@ -1,12 +1,9 @@
 package com.rag_dsa.final_assignment.priority_queue_2;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import com.rag_dsa.final_assignment.LinkedList.LinkedList;
-import com.rag_dsa.final_assignment.LinkedList.LinkedList2;
-
 
 public class PriorityQueueImpl3<T extends Comparable<T>> {
     private LinkedList<T> heap;
@@ -62,6 +59,8 @@ public class PriorityQueueImpl3<T extends Comparable<T>> {
             heap.set(parentIndex, item);
             index = parentIndex;
         }
+        System.out.println("after siftup ");
+        heap.printList();
     }
 
     public void printQueue() {
@@ -77,12 +76,12 @@ public class PriorityQueueImpl3<T extends Comparable<T>> {
             int rightChildIndex = 2 * index + 2;
             int smallestChildIndex = index;
 
-
             if (leftChildIndex < heap.size() && heap.get(leftChildIndex).compareTo(heap.get(smallestChildIndex)) < 0) {
                 smallestChildIndex = leftChildIndex;
             }
 
-            if (rightChildIndex < heap.size() && heap.get(rightChildIndex).compareTo(heap.get(smallestChildIndex)) < 0) {
+            if (rightChildIndex < heap.size()
+                    && heap.get(rightChildIndex).compareTo(heap.get(smallestChildIndex)) < 0) {
                 smallestChildIndex = rightChildIndex;
             }
 
@@ -113,23 +112,28 @@ public class PriorityQueueImpl3<T extends Comparable<T>> {
         // System.out.println("removed last element "+pq.poll());
         // System.out.println("removed last element "+pq.poll());
         pq.printQueue();
+        System.out.println("removal start");
         while (!pq.isEmpty()) {
+            System.out.println("before removal");
+            pq.printQueue();
             Integer polledData = pq.poll();
-            System.out.println(polledData );
-        }
-        // pq.printQueue();
-        PriorityQueueImpl3<PatientArrivalData> patients = new PriorityQueueImpl3<>();
-        patients.add(new PatientArrivalData("p1",3, LocalTime.of(9, 00)));
-        patients.add(new PatientArrivalData("p2",1, LocalTime.of(9, 10)));
-        patients.add(new PatientArrivalData("p3",2, LocalTime.of(9,30)));
-        patients.add(new PatientArrivalData("p4",4, LocalTime.of(10, 00)));
-        patients.add(new PatientArrivalData("p5",1, LocalTime.of(10, 30)));
-        System.out.println("============");
-        while (!patients.isEmpty()) {
-            PatientArrivalData polledData = patients.poll();
-            System.out.println(polledData.priorityLevel+" "+polledData.getName());
+            System.out.println(polledData);
+            System.out.println("after removal");
+            pq.printQueue();
+            System.out.println("++++------+++++");
         }
 
+        // PriorityQueueImpl3<PatientArrivalData> patients = new PriorityQueueImpl3<>();
+        // patients.add(new PatientArrivalData("p1",3, LocalTime.of(9, 00)));
+        // patients.add(new PatientArrivalData("p2",1, LocalTime.of(9, 10)));
+        // patients.add(new PatientArrivalData("p3",2, LocalTime.of(9,30)));
+        // patients.add(new PatientArrivalData("p4",4, LocalTime.of(10, 00)));
+        // patients.add(new PatientArrivalData("p5",1, LocalTime.of(10, 30)));
+        // System.out.println("============");
+        // while (!patients.isEmpty()) {
+        // PatientArrivalData polledData = patients.poll();
+        // System.out.println(polledData.priorityLevel+" "+polledData.getName());
+        // }
 
     }
 }

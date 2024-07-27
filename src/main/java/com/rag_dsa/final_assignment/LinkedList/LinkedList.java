@@ -115,7 +115,6 @@ public class LinkedList<T> {
         LinkedListNode<T> starterNode = head;
 
         LinkedListNode<T> nodeTobeReturned = null;
-        // Integer e = 33;
 
         int count = 0;
         LinkedListNode<T> currentNode = starterNode;
@@ -147,9 +146,10 @@ public class LinkedList<T> {
         LinkedListNode<T> node = head;
         System.out.println("----------");
         while (node != null) {
-            System.out.println(node.data + " ");
+            System.out.print(node.data + " ");
             node = node.next;
         }
+        System.out.println("\n");
         System.out.println("----------");
     }
 

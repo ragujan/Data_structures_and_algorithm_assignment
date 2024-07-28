@@ -1,29 +1,25 @@
 package com.rag_dsa.final_assignment.priority_queue_2;
 
+import java.time.LocalTime;
 import java.util.NoSuchElementException;
-
 import com.rag_dsa.final_assignment.LinkedList.LinkedList;
 
 public class PriorityQueueImpl<T extends Comparable<T>> {
-
     private LinkedList<T> heap;
-    // private ArrayList<T> heap;
 
     public PriorityQueueImpl() {
         heap = new LinkedList<>();
-
     }
 
     public void add(T item) {
         heap.add(item);
         siftUp();
+        // siftDown();
     }
 
-    // to remove element at the first index
     public T poll() {
-
-        if (heap.size() == 0) {
-            throw new NoSuchElementException("Priority Queue is Empty");
+        if (heap.isEmpty()) {
+            throw new NoSuchElementException("Priority queue is empty.");
         }
 
         T item = heap.get(0);
@@ -32,17 +28,28 @@ public class PriorityQueueImpl<T extends Comparable<T>> {
         if (!heap.isEmpty()) {
             heap.set(0, lastItem);
             siftDown();
+            // siftUp();
         }
+
         return item;
+    }
+
+    public T peek() {
+        if (heap.isEmpty()) {
+            throw new NoSuchElementException("Priority queue is empty.");
+        }
+        return heap.get(0);
+    }
+
+    public boolean isEmpty() {
+        return heap.isEmpty();
     }
 
     private void siftUp() {
         int index = heap.size() - 1;
-
         while (index > 0) {
             int parentIndex = (index - 1) / 2;
             T item = heap.get(index);
-
             T parent = heap.get(parentIndex);
 
             if (item.compareTo(parent) >= 0) {
@@ -52,36 +59,33 @@ public class PriorityQueueImpl<T extends Comparable<T>> {
             heap.set(index, parent);
             heap.set(parentIndex, item);
             index = parentIndex;
-
         }
+        // System.out.println("after siftup ");
+        // heap.printList();
+    }
+
+    public void printQueue() {
+        heap.printList();
     }
 
     private void siftDown() {
         int index = 0;
         int size = heap.size();
-
         while (index < size) {
             int leftChildIndex = 2 * index + 1;
             int rightChildIndex = 2 * index + 2;
             int smallestChildIndex = index;
-            System.out.println("------");
-            System.out.println("left child " + leftChildIndex);
-            System.out.println("right child " + rightChildIndex);
-            System.out.println("size is " + size);
-            System.out.println("printing out " + leftChildIndex);
-            System.out.println(heap.get(leftChildIndex));
-            if (leftChildIndex < size && heap.get(leftChildIndex).compareTo(heap.get(smallestChildIndex)) < 0) {
+            if (leftChildIndex < size
+                    && heap.get(leftChildIndex).compareTo(heap.get(smallestChildIndex)) < 0) {
                 smallestChildIndex = leftChildIndex;
             }
-
-            if (rightChildIndex < size && heap.get(rightChildIndex).compareTo(heap.get(smallestChildIndex)) < 0) {
+            if (rightChildIndex < size
+                    && heap.get(rightChildIndex).compareTo(heap.get(smallestChildIndex)) < 0) {
                 smallestChildIndex = rightChildIndex;
             }
-
             if (smallestChildIndex == index) {
                 break;
             }
-
             T temp = heap.get(index);
             heap.set(index, heap.get(smallestChildIndex));
             heap.set(smallestChildIndex, temp);
@@ -90,40 +94,53 @@ public class PriorityQueueImpl<T extends Comparable<T>> {
         }
     }
 
-    public void printQueue() {
-        heap.printList();
-
-    }
-
-    public boolean isEmpty() {
-        return heap.isEmpty();
-    }
-
     public static void main(String[] args) {
-        // LinkedList<Integer> list = new LinkedList<>();
-        // list.add(1);
-        // list.add(3);
-        // list.add(4);
-        // list.add(6);
-        // list.remove(2);
-        // list.printList();
         PriorityQueueImpl<Integer> pq = new PriorityQueueImpl<>();
-        pq.add(5);
-        pq.add(3);
-        pq.add(8);
-        pq.add(1);
 
-        while (!pq.isEmpty()) {
-            System.out.println(pq.poll());
-        }
+        // pq.add(15);
+        pq.add(4);
+        pq.add(7);
+        pq.add(3);
+        pq.add(2);
+        // pq.add(13);
+        // pq.add(10);
+        // pq.add(8);
+        // pq.add(7);
+        // pq.add(9);
+        // pq.add(5);
+        // pq.add(5);
+        // pq.add(1);
+        // pq.add(5);
+        // pq.add(3);
         // pq.printQueue();
 
-        // System.out.println(pq.poll());
+        System.out.println("------");
+
+        pq.printQueue();
+        System.out.println("removal start");
+        pq.poll();
+        pq.printQueue();
         // while (!pq.isEmpty()) {
-        // while (!pq.isEmpty()) {
-        // System.out.println(pq.poll());
+        // System.out.println("before removal");
+        // pq.printQueue();
+        // Integer polledData = pq.poll();
+        // System.out.println(polledData);
+        // System.out.println("after removal");
+        // pq.printQueue();
+        // System.out.println("++++------+++++");
         // }
+
+        PriorityQueueImpl<PatientArrivalData> patients = new PriorityQueueImpl<>();
+        patients.add(new PatientArrivalData("p1",3, LocalTime.of(9, 00)));
+        patients.add(new PatientArrivalData("p2",1, LocalTime.of(9, 10)));
+        patients.add(new PatientArrivalData("p3",2, LocalTime.of(9,30)));
+        patients.add(new PatientArrivalData("p4",4, LocalTime.of(10, 00)));
+        patients.add(new PatientArrivalData("p5",1, LocalTime.of(10, 30)));
+        System.out.println("============");
+        while (!patients.isEmpty()) {
+        PatientArrivalData polledData = patients.poll();
+        System.out.println(polledData.priorityLevel+" "+polledData.getName());
+        }
+
     }
-
 }
-
